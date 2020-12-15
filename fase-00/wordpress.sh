@@ -26,6 +26,7 @@ apt install apache2 -y
 
 # Mover archivo de host virtual
 mv iaw-practica08-f00-main/wordpress.conf /etc/apache2/sites-available/
+
 # Instalar mysql-server
 apt install mysql-server -y
 
