@@ -88,3 +88,4 @@ cp /var/www/html/wordpress/index.php /var/www/html/index.php
 sed -i "s#require __DIR__ . '/wp-blog-header.php';#require( dirname( __FILE__ ) . '/wordpress/wp-blog-header.php' );#" /var/www/html/index.php
 # Reiniciar apache
 systemctl restart apache2
+
