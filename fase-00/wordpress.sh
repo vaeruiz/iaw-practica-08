@@ -26,7 +26,7 @@ apt update -y
 apt install apache2 -y
 
 # Mover archivo de host virtual
-cp iaw-practica-08/wordpress.conf /etc/apache2/sites-available/
+cp iaw-practica-08/fase-00/wordpress.conf /etc/apache2/sites-available/
 
 # Instalar mysql-server
 apt install mysql-server -y
@@ -85,6 +85,6 @@ sed -i "s/password_here/$DB_PASSWORD/" /var/www/html/wordpress/wp-config.php
 sed -i "s/localhost/$IP_MYSQL_SERVER/" /var/www/html/wordpress/wp-config.php
 
 cp /var/www/html/wordpress/index.php /var/www/html/index.php
-
+sed -i "s#require __DIR__ . '/wp-blog-header.php';#require( dirname( __FILE__ ) . '/wordpress/wp-blog-header.php' );#" /var/www/html/index.php
 # Reiniciar apache
 systemctl restart apache2
