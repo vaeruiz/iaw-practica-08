@@ -40,7 +40,7 @@ apt install php libapache2-mod-php php-mysql -y
 
 # Crear base de datos para wordpress
 mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "DROP DATABASE IF EXISTS $DB_NAME;"
-mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "CREATE DATABASE $DB_NAME;"
 
 # Crear usuario para la base de datos de Wordpress
 mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "DROP USER '$DB_USER'@'$IP_PRIVADA';"
