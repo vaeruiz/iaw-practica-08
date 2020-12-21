@@ -7,7 +7,7 @@ DB_NAME=wordpress
 DB_USER=wordpress_user
 DB_PASSWORD=wordpress_password
 DIRECTORIO_HOME=/home/ubuntu
-IP_PRIVADA=172.31.61.107
+IP_PRIVADA=localhost
 
 # Activar la depuración del script
 set -x
@@ -43,9 +43,9 @@ mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "DROP DATABASE IF EXISTS $DB_NAME;"
 mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
 
 # Crear usuario para la base de datos de Wordpress
-mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "DROP USER '$DB_USER'@'localhost';"
-mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "CREATE USER '$DB_USER'@'localhost' IDENTIFIED WITH mysql_native_password BY '$DB_PASSWORD';"
-mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'localhost';"
+mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "DROP USER '$DB_USER'@'$IP_PRIVADA';"
+mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "CREATE USER '$DB_USER'@'$IP_PRIVADA' IDENTIFIED WITH mysql_native_password BY '$DB_PASSWORD';"
+mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'$IP_PRIVADA';"
 mysql -u $ROOT_MYSQL -p$CLAVE_MYSQL <<< "FLUSH PRIVILEGES;"
 
 # Instalar extensiones php
@@ -82,7 +82,7 @@ find /var/www/html/wordpress/ -type f -exec chmod 640 {} \;
 sed -i "s/database_name_here/$DB_NAME/" /var/www/html/wordpress/wp-config.php
 sed -i "s/username_here/$DB_USER/" /var/www/html/wordpress/wp-config.php
 sed -i "s/password_here/$DB_PASSWORD/" /var/www/html/wordpress/wp-config.php
-sed -i "s/localhost/$IP_MYSQL_SERVER/" /var/www/html/wordpress/wp-config.php
+sed -i "s/localhost/$IP_PRIVADA/" /var/www/html/wordpress/wp-config.php
 
 cp /var/www/html/wordpress/index.php /var/www/html/index.php
 sed -i "s#require __DIR__ . '/wp-blog-header.php';#require( dirname( __FILE__ ) . '/wordpress/wp-blog-header.php' );#" /var/www/html/index.php
